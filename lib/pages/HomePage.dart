@@ -14,23 +14,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  // Controller untuk Username
+  // Controller for Username
   TextEditingController usernameController = TextEditingController();
 
   // Get Question from API
-  late QuestionModel questions;
-  final String url = "https://script.google.com/macros/s/AKfycbx9Ly4Zf4TOixt3cb1O3WX_FtFJ8sxO2HJNyFfKEC0/dev";
+  late QuestionModel questionModel;
+  final String url = "https://script.google.com/macros/s/AKfycbzUL5ypkoLwaYwJ8tJcw56gVPO2QUeU05ZeQ_RVH_XjWSdajzhKQuefddanapxPikM/exec";
 
   void getAllData(String username) async {
     try{
       var response = await myHttp.get(Uri.parse(url));
-      questions = QuestionModel.fromJson(json.decode(response.body));
-      print('DEBUG : '+questions.data.length.toString());
-      //Log.d('ZZZ DEBUG');
+      questionModel = QuestionModel.fromJson(json.decode(response.body));
+
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context)=>PlayQuiz(questionModel: questions, username:username,)));
+          .push(MaterialPageRoute(builder: (context)=>PlayQuiz(questionModel: questionModel, username:username,)));
     }catch (err){
-      print('ERROR : '+err.toString());
+      print('VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV');
+      print('ERROR : $err');
 
     }
   }

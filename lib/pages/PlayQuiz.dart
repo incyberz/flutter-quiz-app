@@ -1,13 +1,12 @@
 import 'package:countdown_progress_indicator/countdown_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp2/models/QuestionModel.dart';
+import 'package:myapp2/pages/HasilQuiz.dart';
 
 class PlayQuiz extends StatefulWidget {
   // menerima data dari HomePage
   final QuestionModel questionModel;
   final String username;
-
-
 
   const PlayQuiz(
       {super.key, required this.questionModel, required this.username});
@@ -17,7 +16,34 @@ class PlayQuiz extends StatefulWidget {
 }
 
 class _PlayQuizState extends State<PlayQuiz> {
-  // final _controller = CountDownController();
+  final _controller = CountDownController();
+
+  // agar tampilan soal dinamis
+  int index = 0;
+  int poin = 0;
+
+  void navigate(String optionChar) {
+    setState(() {
+      // cek benar/salah jawaban
+      if (optionChar == widget.questionModel.data[index].kj) {
+        poin++;
+      }
+
+      // menuju soal berikutnya
+      index++;
+
+      // tampilkan hasil jika soalnya habis
+      if (index == widget.questionModel.data.length) {
+        // poin = int.parse((poin/widget.questionModel.data.length*100) as String);
+        Navigator.of(context)
+            .push(MaterialPageRoute(
+                builder: (context) => HasilQuiz(
+                      poin: poin,
+                    )))
+            .then((value) => {setState(() {})});
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +58,12 @@ class _PlayQuizState extends State<PlayQuiz> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "1 / 10",
+                  "1 / " + widget.questionModel.data.length.toString(),
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
                 Text(
-                  "insho",
+                  // "insho",
+                  widget.username,
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ],
@@ -47,21 +74,29 @@ class _PlayQuizState extends State<PlayQuiz> {
             SizedBox(
               height: 150,
               width: 150,
-              // child: CountDownProgressIndicator(
-              //   controller: _controller,
-              //   valueColor: Colors.red,
-              //   backgroundColor: Colors.blue,
-              //   initialPosition: 0,
-              //   duration: 30,
-              //   text: 'detik lagi',
-              //   onComplete: () => null,
-              // ),
+              child: CountDownProgressIndicator(
+                controller: _controller,
+                valueColor: Colors.red,
+                backgroundColor: Colors.blue,
+                initialPosition: 0,
+                duration: 60,
+                text: 'detik lagi',
+                onComplete: () => {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(
+                          builder: (context) => HasilQuiz(
+                                poin: poin,
+                              )))
+                      .then((value) => {setState(() {})})
+                },
+              ),
             ),
             SizedBox(
               height: 50,
             ),
             Text(
-              "Ibukota Indonesia adalah ...",
+              // "Ibukota Indonesia adalah ...",
+              widget.questionModel.data[index].soal,
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
@@ -69,34 +104,46 @@ class _PlayQuizState extends State<PlayQuiz> {
               height: 30,
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                navigate("a");
+              },
               child: OpsiQuiz(
                 opsiChar: "A",
-                opsiDetail: "Biru Donk",
+                // opsiDetail: "Biru Donk",
+                opsiDetail: widget.questionModel.data[index].opsiA,
                 warna: Colors.blueAccent,
               ),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                navigate("b");
+              },
               child: OpsiQuiz(
                 opsiChar: "B",
-                opsiDetail: "Merah",
+                // opsiDetail: "Merah",
+                opsiDetail: widget.questionModel.data[index].opsiB,
                 warna: Colors.blue,
               ),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                navigate("c");
+              },
               child: OpsiQuiz(
                 opsiChar: "C",
-                opsiDetail: "Kuning",
+                // opsiDetail: "Kuning",
+                opsiDetail: widget.questionModel.data[index].opsiC,
                 warna: Colors.blueAccent,
               ),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                navigate("d");
+              },
               child: OpsiQuiz(
                 opsiChar: "D",
-                opsiDetail: "Jingga",
+                // opsiDetail: "Jingga",
+                opsiDetail: widget.questionModel.data[index].opsiD,
                 warna: Colors.blue,
               ),
             )

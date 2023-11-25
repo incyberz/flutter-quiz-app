@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class HasilQuiz extends StatefulWidget {
-  const HasilQuiz({super.key});
+  final int poin;
+
+  const HasilQuiz({super.key, required this.poin});
 
   @override
   State<HasilQuiz> createState() => _HasilQuizState();
@@ -24,7 +26,7 @@ class _HasilQuizState extends State<HasilQuiz> {
                 height: 20,
               ),
               Text(
-                'Hore !! Nilai kamu 10',
+                'Hore !! Nilai kamu '+widget.poin.toString(),
                 style: TextStyle(fontSize: 20),
               )
             ],
