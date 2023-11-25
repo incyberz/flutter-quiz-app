@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp2/pages/HasilQuiz.dart';
+// import 'package:myapp2/pages/HasilQuiz.dart';
 import 'package:myapp2/pages/HomePage.dart';
-import 'package:myapp2/pages/PlayQuiz.dart';
+// import 'package:myapp2/pages/PlayQuiz.dart';
 
 void main(){
   runApp(const MyApp());

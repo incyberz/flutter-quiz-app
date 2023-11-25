@@ -1,15 +1,23 @@
 import 'package:countdown_progress_indicator/countdown_progress_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp2/models/QuestionModel.dart';
 
 class PlayQuiz extends StatefulWidget {
-  const PlayQuiz({super.key});
+  // menerima data dari HomePage
+  final QuestionModel questionModel;
+  final String username;
+
+
+
+  const PlayQuiz(
+      {super.key, required this.questionModel, required this.username});
 
   @override
   State<PlayQuiz> createState() => _PlayQuizState();
 }
 
 class _PlayQuizState extends State<PlayQuiz> {
-  final _controller = CountDownController();
+  // final _controller = CountDownController();
 
   @override
   Widget build(BuildContext context) {
@@ -39,15 +47,15 @@ class _PlayQuizState extends State<PlayQuiz> {
             SizedBox(
               height: 150,
               width: 150,
-              child: CountDownProgressIndicator(
-                controller: _controller,
-                valueColor: Colors.red,
-                backgroundColor: Colors.blue,
-                initialPosition: 0,
-                duration: 30,
-                text: 'detik lagi',
-                onComplete: () => null,
-              ),
+              // child: CountDownProgressIndicator(
+              //   controller: _controller,
+              //   valueColor: Colors.red,
+              //   backgroundColor: Colors.blue,
+              //   initialPosition: 0,
+              //   duration: 30,
+              //   text: 'detik lagi',
+              //   onComplete: () => null,
+              // ),
             ),
             SizedBox(
               height: 50,
